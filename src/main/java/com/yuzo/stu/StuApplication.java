@@ -15,7 +15,10 @@ public class StuApplication {
         return "main";
     }
 
-
+    @RequestMapping("/info")
+    public String info(){
+        return "info";
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(StuApplication.class, args);
