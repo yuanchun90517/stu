@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.yuzo.stu.mapper.ClassTeamMapper">
+    <resultMap id="rm" type="com.yuzo.stu.entity.ClassTeam">
+        <id column="ct_id" property="ctId"></id>
+        <result column="ct_name" property="ctName"></result>
+        <result column="ct_begin_date" property="ctBeginDate"></result>
+        <result column="ct_count" property="ctCount"></result>
+    </resultMap>
+    <select id="query" resultMap="rm">
+        select ct_id, ct_name, ct_begin_date, ct_count from taa_class_team
+    </select>
+
+    <select id="selectByPk" resultMap="rm" parameterType="int">
+          select ct_id, ct_name, ct_begin_date, ct_count from taa_class_team
+          where ct_id = #{ctId}
+    </select>
+
+    <insert id="save" parameterType="com.yuzo.stu.entity.ClassTeam">
+        <trim prefix="insert into taa_class_team ("  suffix=")" suffixOverrides=",">
+            <if test="ctName != null  and  ctName != '' "> ct_name, </if>
+            <if test="ctBeginDate != null  "> ct_begin_date, </if>
+            <if test="ctCount != null "> ct_count, </if>
+        </trim>
+        <trim prefix="values ("  suffix=")" suffixOverrides=",">
+            <if test="ctName != null  and  ctName != '' "> #{ctName}, </if>
+            <if test="ctBeginDate != null  "> #{ctBeginDate}, </if>
+            <if test="ctCount != null "> #{ctCount}, </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.yuzo.stu.entity.ClassTeam">
+        update taa_class_team
+        <set>
+            <if test="ctName != null  and  ctName != '' "> ct_name = #{ctName}, </if>
+            <if test="ctBeginDate != null  "> ct_begin_date = #{ctBeginDate}, </if>
+            <if test="ctCount != null "> ct_count = #{ctCount} , </if>
+        </set>
+        where ct_id = #{ctId}
+    </update>
+    <delete id="dels" parameterType="int[]">
+        delete  from taa_class_team
+        <where>
+            <if test="array!=null">
+                <foreach collection="array" index="i" item="id"
+                    open=" and ct_id in ("  close=")" separator=","
+                >#{id}</foreach>
+            </if>
+        </where>
+    </delete>
+</mapper>
