@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class ClassTeamController {
     @RequestMapping("ct/query")
     public String query(ModelMap modelMap){
         List<ClassTeam> list = service.query();
+
         System.out.println("list = " + list);
         modelMap.put("list", list);
 
@@ -53,5 +55,13 @@ public class ClassTeamController {
     public String dels(Integer[] ids, ModelMap modelMap){
         service.dels(ids);
         return "redirect:query";
+    }
+
+    public void test(){
+        System.out.println("abcdefg kkk abddd");
+
+        System.out.println();
+        List<String> list = new ArrayList<>();
+
     }
 }
