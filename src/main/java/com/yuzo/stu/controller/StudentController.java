@@ -3,6 +3,8 @@ package com.yuzo.stu.controller;
 import com.yuzo.stu.entity.ClassTeam;
 import com.yuzo.stu.entity.Student;
 import com.yuzo.stu.service.IStudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,12 +14,15 @@ import java.util.List;
 
 @Controller
 public class StudentController {
+    private Logger logger = LoggerFactory.getLogger(StudentController.class);
+
     @Autowired
     private IStudentService service;
 
     @RequestMapping("stu/query")
     public String query(ModelMap mm){
         List<Student> list = service.query();
+        logger.info(String.valueOf(list));
         mm.put("list", list);
         return "student/list_stu";
     }
