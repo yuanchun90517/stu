@@ -1,6 +1,7 @@
 package com.yuzo.stu.controller;
 
 import com.yuzo.stu.entity.ClassTeam;
+import com.yuzo.stu.entity.Student;
 import com.yuzo.stu.service.IClassTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,11 +58,4 @@ public class ClassTeamController {
         return "redirect:query";
     }
 
-    public void test(){
-        System.out.println("abcdefg kkk abddd");
-
-        System.out.println();
-        List<String> list = new ArrayList<>();
-
-    }
 }

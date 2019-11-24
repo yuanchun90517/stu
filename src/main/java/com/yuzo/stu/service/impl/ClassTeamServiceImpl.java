@@ -24,7 +24,9 @@ public class ClassTeamServiceImpl implements IClassTeamService {
 
     @Override
     public int add(ClassTeam classTeam) {
-        return mapper.save(classTeam);
+        int count = mapper.save(classTeam);
+        System.out.println("ctId:" + classTeam.getCtId());
+        return count;
     }
 
     @Override

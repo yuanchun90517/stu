@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.yuzo.stu.mapper.StudentMapper">
+    <resultMap id="rm" type="com.yuzo.stu.entity.Student">
+        <id column="stu_id" property="stuId"></id>
+        <result column="ct_id" property="ctId"></result>
+        <result column="stu_name" property="stuName"></result>
+        <result column="stu_in_age" property="stuInAge"></result>
+        <result column="stu_birth" property="stuBirth"></result>
+        <result column="stu_weight" property="stuWeight"></result>
+        <result column="stu_sex" property="stuSex"></result>
+        <result column="ct_name" property="ctName"></result>
+        <result column="stu_sex_name" property="stuSexName"></result>
+        <result column="stu_in_time" property="stuInTime"></result>
+    </resultMap>
+
+    <select id="query" resultMap="rm">
+        select stu_id, stu.ct_id, stu_name, stu_in_age, stu_birth, stu_weight, stu_sex, stu_in_time
+        ,ct.ct_name
+        ,case stu_sex
+            when '0' then '女'
+            when '1' then '男'
+            else '不清楚'
+        end stu_sex_name
+        from tab_student stu left join taa_class_team ct on stu.ct_id = ct.ct_id
+    </select>
+
+    <select id="selectByPk" resultMap="rm" parameterType="int">
+          select stu_id, ct_id, stu_name, stu_in_age, stu_birth, stu_weight, stu_sex, stu_in_time
+          from tab_student
+          where stu_id = #{stuId}
+    </select>
+
+    <insert id="save" parameterType="com.yuzo.stu.entity.ClassTeam">
+        <trim prefix="insert into tab_student ("  suffix=")" suffixOverrides=",">
+            <if test="ctId != null  and  ctId != '' "> ct_id, </if>
+            <if test="stuName != null  and stuName != '' "> stu_name, </if>
+            <if test="stuInAge != null "> stu_in_age, </if>
+            <if test="stuBirth != null "> stu_birth, </if>
+            <if test="stuWeight != null "> stu_weight, </if>
+            <if test="stuSex != null and stuSex != '' "> stu_sex, </if>
+            <if test="stuInTime != null "> stu_in_time, </if>
+        </trim>
+        <trim prefix="values ("  suffix=")" suffixOverrides=",">
+            <if test="ctId != null  and  ctId != '' "> #{ctId}, </if>
+            <if test="stuName != null  and stuName != '' "> #{stuName}, </if>
+            <if test="stuInAge != null "> #{stuInAge}, </if>
+            <if test="stuBirth != null "> #{stuBirth}, </if>
+            <if test="stuWeight != null "> #{stuWeight}, </if>
+            <if test="stuSex != null and stuSex != '' "> #{stuSex}, </if>
+            <if test="stuInTime != null "> #{stuInTime}, </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.yuzo.stu.entity.ClassTeam">
+        update tab_student
+        <set>
+            <if test="ctId != null  and  ctId != '' "> ct_id = #{ctId}, </if>
+            <if test="stuName != null  and stuName != '' "> stu_name = #{stuName}, </if>
+            <if test="stuInAge != null "> stu_in_age = #{stuInAge}, </if>
+            <if test="stuBirth != null "> stu_birth = #{stuBirth}, </if>
+            <if test="stuWeight != null "> stu_weight = #{stuWeight}, </if>
+            <if test="stuSex != null and stuSex != '' "> stu_sex = #{stuSex}, </if>
+            <if test="stuInTime != null "> stu_in_time = #{stuInTime}, </if>
+        </set>
+        where stu_id = #{stuId}
+    </update>
+    <delete id="dels" parameterType="int[]">
+        delete  from tab_student
+        <where>
+            <if test="array!=null">
+                <foreach collection="array" index="i" item="id"
+                    open=" and stu_id in ("  close=")" separator=","
+                >#{id}</foreach>
+            </if>
+        </where>
+    </delete>
+</mapper>

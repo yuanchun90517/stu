@@ -1,6 +1,8 @@
 package com.yuzo.stu.entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Student {
@@ -13,6 +15,7 @@ public class Student {
 
     private Integer stuInAge;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date stuBirth;
 
     private Double stuWeight;
@@ -22,18 +25,27 @@ public class Student {
     private String ctName;
     
     private String stuSexName;
-    
-    
-    
+
+    private Date stuInTime;
+
 
     @Override
-	public String toString() {
-		return "Student [stuId=" + stuId + ", ctId=" + ctId + ", stuName=" + stuName + ", stuInAge=" + stuInAge
-				+ ", stuBirth=" + stuBirth + ", stuWeight=" + stuWeight + ", stuSex=" + stuSex + ", ctName=" + ctName
-				+ "]";
-	}
+    public String toString() {
+        return "Student{" +
+                "stuId='" + stuId + '\'' +
+                ", ctId='" + ctId + '\'' +
+                ", stuName='" + stuName + '\'' +
+                ", stuInAge=" + stuInAge +
+                ", stuBirth=" + stuBirth +
+                ", stuWeight=" + stuWeight +
+                ", stuSex='" + stuSex + '\'' +
+                ", ctName='" + ctName + '\'' +
+                ", stuSexName='" + stuSexName + '\'' +
+                ", stuInTime=" + stuInTime +
+                '}';
+    }
 
-	public String getStuId() {
+    public String getStuId() {
         return stuId;
     }
 
@@ -104,6 +116,12 @@ public class Student {
 	public void setStuSexName(String stuSexName) {
 		this.stuSexName = stuSexName;
 	}
-    
-    
+
+    public Date getStuInTime() {
+        return stuInTime;
+    }
+
+    public void setStuInTime(Date stuInTime) {
+        this.stuInTime = stuInTime;
+    }
 }

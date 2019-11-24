@@ -16,7 +16,7 @@
           where ct_id = #{ctId}
     </select>
 
-    <insert id="save" parameterType="com.yuzo.stu.entity.ClassTeam">
+    <insert id="save" parameterType="com.yuzo.stu.entity.ClassTeam"  useGeneratedKeys="true" keyProperty="ctId">
         <trim prefix="insert into taa_class_team ("  suffix=")" suffixOverrides=",">
             <if test="ctName != null  and  ctName != '' "> ct_name, </if>
             <if test="ctBeginDate != null  "> ct_begin_date, </if>

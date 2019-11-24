@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>修改页面</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<include th:replace="/common/css :: commoncss"/>
+
+
+	<style type="text/css">
+
+		.content-wrapper {
+			margin-left: 0px;
+		}
+	</style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+
+
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				学生修改
+			</h1>
+			<ol class="breadcrumb">
+				<li>
+					<a th:href="@{/info}"><i class="glyphicon glyphicon-globe"></i>导航</a>
+				</li>
+				<li class="active">
+					<a href="#">学生修改</a>
+				</li>
+			</ol>
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="row">
+				<form class="form form-horizontal" method="post"    th:action="@{/stu/editSave}"   th:object="${stu}"  >
+
+					<!-- left column -->
+					<div class="col-md-8 col-md-offset-2">
+						<!-- general form elements -->
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">基本信息</h3>
+								<div class="box-search">
+									<button type="button" class="btn btn-default pull-right" onclick="history.back()">返回</button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<!-- form start -->
+							<div class="box-body">
+								<div class="form-group">
+									<label for="stuName" class="col-sm-2 control-label">学生姓名</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="stuName" name="stuName"  placeholder="请输入学生姓名" required="required">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="ctId" class="col-sm-2 control-label">所属班级</label>
+									<div class="col-sm-10">
+										<select class="form-control" id="ctId"  name="ctId" >
+											<option  value = "" >请选择</option>
+											<option  th:value = "${ct.ctId }"   th:each="ct,i:${ctList}"   th:text="${ct.ctName }"   ></option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="stuSex" class="col-sm-2 control-label">学生性别</label>
+									<div class="col-sm-10 radio text-left">
+										<label>
+											<input type="radio"  value="0" name="stuSex"  checked >男
+										</label>
+										<label>
+											<input type="radio"  value="1" name="stuSex" >女
+										</label>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="stuBirth" class="col-sm-2 control-label">出生日期</label>
+									<div class="col-sm-10 ">
+										<input type="date" class="form-control" id="stuBirth" name="stuBirth"   placeholder="请输入出生日期"  >
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="stuInAge" class="col-sm-2 control-label">入学年龄</label>
+									<div class="col-sm-10 ">
+										<input type="number" min="1" step="1" class="form-control" id="stuInAge" name="stuInAge"   placeholder="请输入入学年龄"  >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="stuWeight" class="col-sm-2 control-label">学生体重</label>
+									<div class="col-sm-10 ">
+										<input type="number" min="1" step="0.01" class="form-control" id="stuWeight" name="stuWeight"   placeholder="请输入学生体重"  >
+									</div>
+								</div>
+
+								<!-- /.box-body -->
+								<div class="box-footer">
+									<button type="button" class="btn btn-danger" onclick="cleanUp(this)">清空</button>
+									<button type="submit" class="btn btn-info pull-right">提交</button>
+								</div>
+								<!-- /.box-footer -->
+							</div>
+							<!-- /.box -->
+							<!-- /.modal -->
+						</div>
+						<!--/.col (right) -->
+				</form>
+			</div>
+			<!-- /.row -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+
+</div>
+<div th:replace="/common/js :: commonjs"></div>
+</body>
+
+<script type="text/javascript">
+
+
+	//清空
+	function cleanUp(btn) {
+		parDiv = $(btn).parent().parent();
+		parDiv.find("input").val("");
+		parDiv.find("textarea").html("");
+		parDiv.find("select").each(function(i, j) {
+			$(j).find("option:selected").prop("selected", false);
+			$(j).find("option").first().prop("selected", true);
+		});
+	}
+</script>
+
+</html>

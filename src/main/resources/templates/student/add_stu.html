@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>修改页面</title>
+		<title>添加页面</title>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	  <include th:replace="/common/css :: commoncss"/>
@@ -28,14 +28,14 @@
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 					<h1>
-          				班级修改
+          				学生添加
 			        </h1>
 			       <ol class="breadcrumb">
 						<li>
 							<a th:href="@{/info}"><i class="glyphicon glyphicon-globe"></i>导航</a>
 						</li>
 						<li class="active">
-							<a href="#">班级修改</a>
+							<a href="#">学生添加</a>
 						</li>
 					</ol>
 				</section>
@@ -43,8 +43,7 @@
 				<!-- Main content -->
 				<section class="content">
 					<div class="row">
-						<form class="form form-horizontal" method="post"    th:action="@{/ct/editSave}"  th:object="${ct}"  >
-						<input type="hidden" name="ctId"  th:field="*{ctId}"  >
+						<form class="form form-horizontal" method="post"    th:action="@{/stu/addSave}"  >
 							<!-- left column -->
 							<div class="col-md-8 col-md-offset-2">
 								<!-- general form elements -->
@@ -59,23 +58,50 @@
 									<!-- form start -->
 									<div class="box-body">
 										<div class="form-group">
-											<label for="ctName" class="col-sm-2 control-label">班级名称</label>
+											<label for="stuName" class="col-sm-2 control-label">学生姓名</label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control" id="ctName" name="ctName" th:field="*{ctName}" placeholder="请输入班级名称" required="required">
+												<input type="text" class="form-control" id="stuName" name="stuName"  placeholder="请输入学生姓名" required="required">
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label for="ctBeginDate" class="col-sm-2 control-label">开班时间</label>
-											<div class="col-sm-10 ">
-												<input type="date" class="form-control" id="ctBeginDate" name="ctBeginDate"  th:field="*{ctBeginDate}"   placeholder="请输入开班时间"  >
+											<label for="ctId" class="col-sm-2 control-label">所属班级</label>
+											<div class="col-sm-10">
+												<select class="form-control" id="ctId"  name="ctId" >
+													<option  value = "" >请选择</option>
+													<option  th:value = "${ct.ctId }"   th:each="ct,i:${ctList}"   th:text="${ct.ctName }"   ></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="stuSex" class="col-sm-2 control-label">学生性别</label>
+											<div class="col-sm-10 radio text-left">
+												<label>
+													<input type="radio"  value="0" name="stuSex"  checked >男
+												</label>
+												<label>
+													<input type="radio"  value="1" name="stuSex" >女
+												</label>
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label for="ctCount" class="col-sm-2 control-label">预招生人数</label>
+											<label for="stuBirth" class="col-sm-2 control-label">出生日期</label>
 											<div class="col-sm-10 ">
-												<input type="number" min="1" step="1" class="form-control" id="ctCount" name="ctCount"  th:field="*{ctCount}"   placeholder="请输入预招生人数"  >
+												<input type="date" class="form-control" id="stuBirth" name="stuBirth"   placeholder="请输入出生日期"  >
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="stuInAge" class="col-sm-2 control-label">入学年龄</label>
+											<div class="col-sm-10 ">
+												<input type="number" min="1" step="1" class="form-control" id="stuInAge" name="stuInAge"   placeholder="请输入入学年龄"  >
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="stuWeight" class="col-sm-2 control-label">学生体重</label>
+											<div class="col-sm-10 ">
+												<input type="number" min="1" step="0.01" class="form-control" id="stuWeight" name="stuWeight"   placeholder="请输入学生体重"  >
 											</div>
 										</div>
 
