@@ -12,10 +12,11 @@
         <result column="ct_name" property="ctName"></result>
         <result column="stu_sex_name" property="stuSexName"></result>
         <result column="stu_in_time" property="stuInTime"></result>
+        <result column="stu_sn" property="stuSn"></result>
     </resultMap>
 
     <select id="query" resultMap="rm">
-        select stu_id, stu.ct_id, stu_name, stu_in_age, stu_birth, stu_weight, stu_sex, stu_in_time
+        select stu_id, stu.ct_id, stu_name, stu_in_age, stu_birth, stu_weight, stu_sex, stu_in_time, stu_sn
         ,ct.ct_name
         ,case stu_sex
             when '0' then '女'
@@ -26,7 +27,7 @@
     </select>
 
     <select id="selectByPk" resultMap="rm" parameterType="int">
-          select stu_id, ct_id, stu_name, stu_in_age, stu_birth, stu_weight, stu_sex, stu_in_time
+          select stu_id, ct_id, stu_name, stu_in_age, stu_birth, stu_weight, stu_sex, stu_in_time, stu_sn
           from tab_student
           where stu_id = #{stuId}
     </select>
@@ -40,6 +41,7 @@
             <if test="stuWeight != null "> stu_weight, </if>
             <if test="stuSex != null and stuSex != '' "> stu_sex, </if>
             <if test="stuInTime != null "> stu_in_time, </if>
+            <if test="stuSn != null ">  stu_sn, </if>
         </trim>
         <trim prefix="values ("  suffix=")" suffixOverrides=",">
             <if test="ctId != null  and  ctId != '' "> #{ctId}, </if>
@@ -49,6 +51,7 @@
             <if test="stuWeight != null "> #{stuWeight}, </if>
             <if test="stuSex != null and stuSex != '' "> #{stuSex}, </if>
             <if test="stuInTime != null "> #{stuInTime}, </if>
+            <if test="stuSn != null "> #{stuSn}, </if>
         </trim>
     </insert>
     <update id="update" parameterType="com.yuzo.stu.entity.ClassTeam">
@@ -61,6 +64,7 @@
             <if test="stuWeight != null "> stu_weight = #{stuWeight}, </if>
             <if test="stuSex != null and stuSex != '' "> stu_sex = #{stuSex}, </if>
             <if test="stuInTime != null "> stu_in_time = #{stuInTime}, </if>
+            <if test="stuSn != null "> stu_sn = #{stuSn}, </if>
         </set>
         where stu_id = #{stuId}
     </update>

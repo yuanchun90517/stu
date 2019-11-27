@@ -3,6 +3,8 @@ package com.yuzo.stu.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Student {
@@ -26,7 +28,9 @@ public class Student {
     
     private String stuSexName;
 
-    private Date stuInTime;
+    private LocalDateTime stuInTime;
+
+    private String stuSn;
 
 
     @Override
@@ -42,7 +46,16 @@ public class Student {
                 ", ctName='" + ctName + '\'' +
                 ", stuSexName='" + stuSexName + '\'' +
                 ", stuInTime=" + stuInTime +
+                ", stuSn='" + stuSn + '\'' +
                 '}';
+    }
+
+    public void setStuSn(String stuSn) {
+        this.stuSn = stuSn;
+    }
+
+    public String getStuSn() {
+        return stuSn;
     }
 
     public String getStuId() {
@@ -117,11 +130,11 @@ public class Student {
 		this.stuSexName = stuSexName;
 	}
 
-    public Date getStuInTime() {
+    public LocalDateTime getStuInTime() {
         return stuInTime;
     }
 
-    public void setStuInTime(Date stuInTime) {
+    public void setStuInTime(LocalDateTime stuInTime) {
         this.stuInTime = stuInTime;
     }
 }

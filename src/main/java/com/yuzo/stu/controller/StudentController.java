@@ -24,6 +24,8 @@ public class StudentController {
         List<Student> list = service.query();
         logger.info(String.valueOf(list));
         mm.put("list", list);
+        List<ClassTeam> ctList = service.queryCt();
+        mm.put("ctList", ctList);
         return "student/list_stu";
     }
 
@@ -42,6 +44,7 @@ public class StudentController {
 
     @RequestMapping("stu/editPage")
     public String addPage(Integer id, ModelMap mm){
+
         List<ClassTeam> ctList = service.queryCt();
         mm.put("ctList", ctList);
         Student stu = service.queryById(id);

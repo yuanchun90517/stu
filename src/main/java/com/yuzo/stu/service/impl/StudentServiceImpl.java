@@ -8,6 +8,8 @@ import com.yuzo.stu.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public int add(Student stu) {
-        stu.setStuInTime(new Date());
+        stu.setStuInTime(LocalDateTime.now());
         return mapper.save(stu);
     }
 
@@ -43,7 +45,7 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public int edit(Student stu) {
-        stu.setStuInTime(new Date());
+        stu.setStuInTime(LocalDateTime.now());
         return mapper.update(stu);
     }
 

@@ -49,6 +49,24 @@
 			<div class="box">
 				<form name="infoForm" id="queryForm" method="post" >
 					<div class="box-header clearfix">
+
+						<div class="box-search">
+							<div class="input-group">
+								<span class="input-group-addon" style="background: #EEEEEE;">学生姓名</span>
+								<input type="text" class="form-control" name='qstnCode'   placeholder="请输入学生姓名"  >
+							</div>
+						</div>
+
+						<div class="box-search">
+							<div class="input-group">
+								<span class="input-group-addon" style="background: #EEEEEE;">所属班级</span>
+								<select class="form-control" name="qstnTypeId"     >
+									<option value="">请选择</option>
+									<option  th:value = "${ct.ctId }"   th:each="ct,i:${ctList}"   th:text="${ct.ctName}"  >班级信息</option>
+								</select>
+							</div>
+						</div>
+
 						<div class="box-search btn-group">
 							<button class="btn btn-success"  type="button" name="queryInfo"  onclick="addPage()" >添加</button>
 							<button class="btn btn-warning"  type="button" name="delBtn"  onclick="dels()" >删除</button>
@@ -62,7 +80,14 @@
 							<th>序号</th>
 							<th>全选</th>
 							<th>学生</th>
+							<th>学号</th>
 							<th>所属班级</th>
+
+							<th>生日</th>
+							<th>入学年龄</th>
+							<th>体重</th>
+							<th>性别</th>
+
 							<th>调整时间</th>
 							<th>操作</th>
 						</tr>
@@ -72,9 +97,15 @@
 								<td th:text="${i.count }">1</td>
 								<td ><input type="checkbox" name="ids"  value="1"    th:value="${row.stuId}"  ></td>
 								<td th:text="${row.stuName}" >JavaSE</td>
-
+								<td th:text="${row.stuSn}" >JavaSE</td>
 								<td th:text="${row.ctName}">1</td>
-								<td th:text="${#dates.format(row.stuInTime, 'yyyy-MM-dd HH:mm:ss')}">1</td>
+
+								<td th:text="${#dates.format(row.stuBirth, 'yyyy-MM-dd')}">1</td>
+								<td th:text="${row.stuInAge}">1</td>
+								<td th:text="${row.stuWeight}">1</td>
+								<td th:text="${row.stuSex eq '1'?'男':'女'}">1</td>
+
+								<td th:text="${#temporals.format(row.stuInTime, 'yyyy-MM-dd HH:mm:ss', locale)}">1</td>
 								<td>
 									<button type="button" class="btn btn-primary btn-sm"  th:onclick="editpage([[${row.stuId}]])"     onclick="javascript:editpage('1')"    >修改</button>
 
