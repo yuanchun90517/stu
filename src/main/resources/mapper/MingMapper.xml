@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.yuzo.stu.mapper.MingMapper">
+    <resultMap id="rm" type="com.yuzo.stu.entity.Ming">
+        <id column="mid" property="mid"></id>
+        <result column="ming" property="ming"></result>
+
+    </resultMap>
+    <select id="query" resultMap="rm">
+        select mid, ming from mingzhi
+    </select>
+
+    <select id="selectByPk" resultMap="rm" parameterType="int">
+          select mid, ming from mingzhi
+          where mid = #{mid}
+    </select>
+
+    <insert id="save" parameterType="com.yuzo.stu.entity.Ming"  useGeneratedKeys="true" keyProperty="mid">
+        <trim prefix="insert into mingzhi ("  suffix=")" suffixOverrides=",">
+            <if test="ming != null  and  ming != '' "> ming, </if>
+        </trim>
+        <trim prefix="values ("  suffix=")" suffixOverrides=",">
+            <if test="ming != null  and  ming != '' "> #{ming}, </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.yuzo.stu.entity.Ming">
+        update mingzhi
+        <set>
+            <if test="ming != null  and  ming != '' "> xing = #{ming}, </if>
+        </set>
+        where mid = #{mid}
+    </update>
+    <delete id="dels" parameterType="int[]">
+        delete  from mingzhi
+        <where>
+            <if test="array!=null">
+                <foreach collection="array" index="i" item="id"
+                    open=" and mid in ("  close=")" separator=","
+                >#{id}</foreach>
+            </if>
+        </where>
+    </delete>
+</mapper>

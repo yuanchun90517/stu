@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.yuzo.stu.mapper.XingMapper">
+    <resultMap id="rm" type="com.yuzo.stu.entity.Xing">
+        <id column="xid" property="xid"></id>
+        <result column="xing" property="xing"></result>
+
+    </resultMap>
+    <select id="query" resultMap="rm">
+        select xid, xing from xingshi
+    </select>
+
+    <select id="selectByPk" resultMap="rm" parameterType="int">
+          select xid, xing from xingshi
+          where xid = #{xid}
+    </select>
+
+    <insert id="save" parameterType="com.yuzo.stu.entity.Xing"  useGeneratedKeys="true" keyProperty="xid">
+        <trim prefix="insert into xingshi ("  suffix=")" suffixOverrides=",">
+            <if test="xing != null  and  xing != '' "> xing, </if>
+        </trim>
+        <trim prefix="values ("  suffix=")" suffixOverrides=",">
+            <if test="xing != null  and  xing != '' "> #{xing}, </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.yuzo.stu.entity.Xing">
+        update xingshi
+        <set>
+            <if test="xing != null  and  xing != '' "> xing = #{xing}, </if>
+        </set>
+        where xid = #{xid}
+    </update>
+    <delete id="dels" parameterType="int[]">
+        delete  from xingshi
+        <where>
+            <if test="array!=null">
+                <foreach collection="array" index="i" item="id"
+                    open=" and xid in ("  close=")" separator=","
+                >#{id}</foreach>
+            </if>
+        </where>
+    </delete>
+</mapper>
